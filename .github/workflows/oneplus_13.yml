@@ -25,7 +25,11 @@ on:
        required: false
        default: true
        type: boolean
-       
+      publish_to_release:
+       description: "是否发布至Release"
+       required: false
+       default: true
+       type: boolean
 
 
 jobs:
@@ -300,3 +304,24 @@ jobs:
         with:
          name: SuKiSu_${{ env.KSUVER }}_oneplus_13
          path: ./AnyKernel3/*
+         
+      - name: Download artifact for release
+        if: ${{ inputs.publish_to_release }}
+        uses: actions/download-artifact@v4
+        with:
+          name: SuKiSu_${{ env.KSUVER }}_oneplus_13
+          path: release_artifacts
+
+      - name: Create GitHub Release
+        if: ${{ inputs.publish_to_release }}
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: "v${{ env.KSUVER }}"
+          name: "SuKiSu Kernel v${{ env.KSUVER }}"
+          body: "一加13_sukisu\nName：${{ inputs.KERNEL_SUFFIX }}\nTime：${{ inputs.KERNEL_TIME }}\nKPM：${{ inputs.enable_feature_x }}\nLz4kd：${{ inputs.enable_feature_y }}\nscx：${{ inputs.enable_feature_z }}"
+          files: |
+            release_artifacts/SuKiSu_${{ env.KSUVER }}_oneplus_13.zip
+          draft: false
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
