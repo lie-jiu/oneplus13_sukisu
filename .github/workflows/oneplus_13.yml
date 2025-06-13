@@ -323,7 +323,7 @@ jobs:
           name: "SuKiSu Kernel v${{ env.KSUVER }}"
           body: "一加13_sukisu\nName：${{ inputs.KERNEL_SUFFIX }}\nTime：${{ inputs.KERNEL_TIME }}\nKPM：${{ inputs.enable_feature_x }}\nLz4kd：${{ inputs.enable_feature_y }}\nscx：${{ inputs.enable_feature_z }}"
           files: |
-            release_artifacts/SuKiSu_${{ env.KSUVER }}_oneplus_13.zip
+            /home/runner/work/oneplus13_sukisu/oneplus13_sukisu/release_artifacts/SuKiSu_${{ env.KSUVER }}_oneplus_13.zip
           draft: false
           prerelease: true
         env:
