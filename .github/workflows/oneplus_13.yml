@@ -312,6 +312,9 @@ jobs:
           name: SuKiSu_${{ env.KSUVER }}_oneplus_13
           path: release_artifacts
 
+      - name: Verify artifacts
+        run: ls -R release_artifacts
+
       - name: Create GitHub Release
         if: ${{ inputs.publish_to_release }}
         uses: softprops/action-gh-release@v1
